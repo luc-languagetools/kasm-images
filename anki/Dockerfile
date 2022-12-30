@@ -9,17 +9,22 @@ ENV INST_SCRIPTS $STARTUPDIR/install
 WORKDIR $HOME
 
 ######### Customize Container Here ###########
-RUN apt-get update && apt-get install -y zstd
+RUN apt-get update && apt-get install -y zstd xdg-utils
 
-ENV ANKI_FILENAME anki-2.1.55-linux-qt6.tar.zst
+ENV ANKI_VERSION 2.1.55
+ENV ANKI_FILEROOT anki-${ANKI_VERSION}-linux-qt6
+ENV ANKI_FILENAME ${ANKI_FILEROOT}.tar.zst
 ENV ANKI_TEMP_DIR /tmp
-ENV ANKI_INSTALL_DIR /opt/anki
 
-RUN cd ${ANKI_TEMP_DIR} && wget https://github.com/ankitects/anki/releases/download/2.1.55/${ANKI_FILENAME}
-RUN mkdir ${ANKI_INSTALL_DIR} && cd ${ANKI_INSTALL_DIR} && tar --use-compress-program=unzstd -xvf ${ANKI_TEMP_DIR}/${ANKI_FILENAME}
+RUN cd ${ANKI_TEMP_DIR} && wget https://github.com/ankitects/anki/releases/download/${ANKI_VERSION}/${ANKI_FILENAME}
+RUN cd ${ANKI_TEMP_DIR} && tar --use-compress-program=unzstd -xvf ${ANKI_TEMP_DIR}/${ANKI_FILENAME}
+RUN cd ${ANKI_TEMP_DIR}/${ANKI_FILEROOT} && ./install.sh
 
-RUN echo "08:57am" $HOME/Desktop/hello.txt
+RUN cp /usr/local/share/applications/anki.desktop $HOME/Desktop/ && chmod +x $HOME/Desktop/anki.desktop
 
+# change desktop background
+RUN wget https://res.cloudinary.com/photozzap/image/upload/v1594529672/ankireview_prod/backgrounds/abstract_future/yjdfbxopgneezbgqc1di.png \
+ -O /usr/share/extra/backgrounds/bg_default.png
 
 ######### End Customizations ###########
 
