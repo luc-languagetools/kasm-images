@@ -9,7 +9,7 @@ ENV INST_SCRIPTS $STARTUPDIR/install
 WORKDIR $HOME
 
 ######### Customize Container Here ###########
-RUN apt-get update && apt-get install -y zstd xdg-utils
+RUN apt-get update && apt-get install -y zstd xdg-utils firefox
 
 ENV ANKI_VERSION 2.1.55
 ENV ANKI_FILEROOT anki-${ANKI_VERSION}-linux-qt6
@@ -21,6 +21,10 @@ RUN cd ${ANKI_TEMP_DIR} && tar --use-compress-program=unzstd -xvf ${ANKI_TEMP_DI
 RUN cd ${ANKI_TEMP_DIR}/${ANKI_FILEROOT} && ./install.sh
 
 RUN cp /usr/local/share/applications/anki.desktop $HOME/Desktop/ && chmod +x $HOME/Desktop/anki.desktop
+
+# setup anki profile
+COPY Anki2.tar.gz ${ANKI_TEMP_DIR}
+RUN mkdir -p $HOME/.local/share && cd $HOME/.local/share && tar xvzf ${ANKI_TEMP_DIR}/Anki2.tar.gz
 
 # change desktop background
 RUN wget https://res.cloudinary.com/photozzap/image/upload/v1594529672/ankireview_prod/backgrounds/abstract_future/yjdfbxopgneezbgqc1di.png \
