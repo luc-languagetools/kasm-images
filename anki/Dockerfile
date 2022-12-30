@@ -9,7 +9,7 @@ ENV INST_SCRIPTS $STARTUPDIR/install
 WORKDIR $HOME
 
 ######### Customize Container Here ###########
-RUN apt-get update && apt-get install -y zstd xdg-utils firefox
+RUN apt-get update && apt-get install -y zstd xdg-utils firefox mpv
 
 ENV ANKI_VERSION 2.1.55
 ENV ANKI_FILEROOT anki-${ANKI_VERSION}-linux-qt6
