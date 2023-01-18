@@ -26,6 +26,9 @@ RUN cp /usr/local/share/applications/anki.desktop $HOME/Desktop/ && chmod +x $HO
 COPY Anki2.tar.gz ${ANKI_TEMP_DIR}
 RUN mkdir -p $HOME/.local/share && cd $HOME/.local/share && tar xvzf ${ANKI_TEMP_DIR}/Anki2.tar.gz
 
+# download anki deck
+RUN mkdir -p $HOME/AnkiDecks/ && wget https://cloud-language-tools-storage.nyc3.digitaloceanspaces.com/collection.colpkg -O $HOME/AnkiDecks/collection.colpkg
+
 # change desktop background
 RUN wget https://res.cloudinary.com/photozzap/image/upload/v1594529672/ankireview_prod/backgrounds/abstract_future/yjdfbxopgneezbgqc1di.png \
  -O /usr/share/extra/backgrounds/bg_default.png
