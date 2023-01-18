@@ -23,6 +23,8 @@ RUN cd ${ANKI_TEMP_DIR}/${ANKI_FILEROOT} && ./install.sh
 RUN cp /usr/local/share/applications/anki.desktop $HOME/Desktop/ && chmod +x $HOME/Desktop/anki.desktop
 
 # setup anki profile
+# to create this: (from inside ~/.local/share)
+# tar cvzf Anki2.tar.gz Anki2
 COPY Anki2.tar.gz ${ANKI_TEMP_DIR}
 RUN mkdir -p $HOME/.local/share && cd $HOME/.local/share && tar xvzf ${ANKI_TEMP_DIR}/Anki2.tar.gz
 
