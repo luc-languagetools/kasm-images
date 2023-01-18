@@ -11,7 +11,7 @@ WORKDIR $HOME
 ######### Customize Container Here ###########
 RUN apt-get update && apt-get install -y zstd xdg-utils firefox mpv
 
-ENV ANKI_VERSION 2.1.55
+ENV ANKI_VERSION 2.1.56
 ENV ANKI_FILEROOT anki-${ANKI_VERSION}-linux-qt6
 ENV ANKI_FILENAME ${ANKI_FILEROOT}.tar.zst
 ENV ANKI_TEMP_DIR /tmp
